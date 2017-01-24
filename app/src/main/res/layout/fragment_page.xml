@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  >
+
+  <data>
+    <variable
+      name="page"
+      type="com.shepard.www.makabyclean.models.Page"
+      />
+  </data>
+
+  <ScrollView
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    >
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      >
+
+      <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="350dp"
+        app:srcCompat="@mipmap/picture_main"
+        android:paddingBottom="100dp"
+        android:layout_gravity="top"
+        />
+
+      <ImageView
+        android:id="@+id/textImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/main_text"
+        android:paddingTop="200dp"
+        />
+
+    </FrameLayout>
+  </ScrollView>
+</layout>

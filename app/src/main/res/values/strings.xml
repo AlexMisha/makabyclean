@@ -1,0 +1,16 @@
+<resources>
+  <string name="app_name">Makabyclean</string>
+
+  <string name="navigation_drawer_open">Open navigation drawer</string>
+  <string name="navigation_drawer_close">Close navigation drawer</string>
+
+  <string name="main_text">
+    <b>Клининговая компания "MakabyClean"</b> специализируется
+    на предоставлении услуг профессиональной уборки жилых и
+    коммерческих помещений.
+    Надежный и опытный персонал нашей компании готов
+    предоставить Вам качественное обслуживание, которое Вы заслуживаете.
+    Наша цель заключается в обеспечении соотношения
+    высокого уровня профессиональной уборки и стоимости услуг.
+  </string>
+</resources>
