@@ -3,15 +3,11 @@
   <group android:checkableBehavior="single">
     <item
       android:id="@+id/chapter_1"
-      android:title="Главная"
+      android:title="@string/menu_item_main"
       />
     <item
       android:id="@+id/chapter_2"
-      android:title="Услуги"
-      />
-    <item
-      android:id="@+id/chapter_3"
-      android:title="Контакты"
+      android:title="@string/menu_item_contacts"
       />
   </group>
 

@@ -13,4 +13,8 @@
     Наша цель заключается в обеспечении соотношения
     высокого уровня профессиональной уборки и стоимости услуг.
   </string>
+  <string name="header_text">MAKABYCLEAN.RU</string>
+  <string name="nav_text">mkbklean@gmail.com</string>
+  <string name="menu_item_main">Главная</string>
+  <string name="menu_item_contacts">Услуги</string>
 </resources>
