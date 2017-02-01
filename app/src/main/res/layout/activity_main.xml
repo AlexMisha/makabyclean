@@ -41,10 +41,10 @@
           />
 
         <android.support.v4.widget.NestedScrollView
-          android:layout_below="@id/main_activity_toolbar"
           android:id="@+id/nestedScrollView"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
+          android:layout_below="@id/main_activity_toolbar"
           app:layout_behavior="@string/appbar_scrolling_view_behavior"
           >
 

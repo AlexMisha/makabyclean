@@ -5,4 +5,11 @@
   <color name="colorAccent">#f73f52</color>
 
   <color name="colorBackground">#fef2f2</color>
+
+  <color name="base">#0d7377</color>
+  <color name="error">#b31313</color>
+  <color name="highlight">#5da0a2</color>
+  <color name="hint">#212121</color>
+  <color name="arrow">#0d7377</color>
+  <color name="floating_label">#f73f52</color>
 </resources>

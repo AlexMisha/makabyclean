@@ -9,8 +9,8 @@ import android.view.MenuItem;
 
 import com.shepard.www.makabyclean.R;
 import com.shepard.www.makabyclean.databinding.ActivityMainBinding;
+import com.shepard.www.makabyclean.fragments.OrderFragment;
 import com.shepard.www.makabyclean.fragments.PageFragment;
-import com.shepard.www.makabyclean.fragments.ServicesFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,8 +50,8 @@ public class NavigationUtil implements NavigationView.OnNavigationItemSelectedLi
 
     if (item.getTitle() == binding.getRoot()
         .getResources()
-        .getString(R.string.menu_item_contacts)) {
-      changeFragment(new ServicesFragment());
+        .getString(R.string.menu_item_order)) {
+      changeFragment(new OrderFragment());
       selectItem(item);
     }
 

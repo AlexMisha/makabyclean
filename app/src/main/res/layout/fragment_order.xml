@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:fbutton="http://schemas.android.com/tools"
+  >
+
+  <data>
+    <variable
+      name="page"
+      type="com.shepard.www.makabyclean.models.Page"
+      />
+  </data>
+
+  <FrameLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+      <fr.ganfra.materialspinner.MaterialSpinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:ms_alignLabels="false"
+        app:ms_arrowColor="@color/arrow"
+        app:ms_arrowSize="16dp"
+        app:ms_baseColor="@color/base"
+        app:ms_enableErrorLabel="true"
+        app:ms_enableFloatingLabel="false"
+        app:ms_error="Error"
+        app:ms_errorColor="@color/error"
+        app:ms_floatingLabelColor="@color/floating_label"
+        app:ms_floatingLabelText="floating label"
+        app:ms_highlightColor="@color/highlight"
+        app:ms_hint="@string/hint"
+        app:ms_hintColor="@color/hint"
+        app:ms_multiline="false"
+        app:ms_thickness="2dp"
+        />
+
+      <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/firstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinner"
+        android:hint="@string/name_hint"
+        android:inputType="textPersonName"
+        app:met_errorColor="@color/error"
+        app:met_helperText="@string/name_help"
+        app:met_helperTextColor="@color/highlight"
+        app:met_maxCharacters="10"
+        app:met_minCharacters="2"
+        app:met_primaryColor="@color/base"
+        />
+
+      <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/firstName"
+        android:hint="@string/phone_hint"
+        android:inputType="phone"
+        app:met_errorColor="@color/error"
+        app:met_helperText="@string/phone_help"
+        app:met_helperTextColor="@color/highlight"
+        app:met_maxCharacters="20"
+        app:met_minCharacters="11"
+        app:met_primaryColor="@color/base"
+        />
+
+      <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phone"
+        android:hint="@string/mail_hint"
+        android:inputType="textEmailAddress"
+        app:met_errorColor="@color/error"
+        app:met_helperText="@string/mail_help"
+        app:met_helperTextColor="@color/highlight"
+        app:met_maxCharacters="100"
+        app:met_minCharacters="5"
+        app:met_primaryColor="@color/base"
+        />
+
+      <com.dd.CircularProgressButton
+        android:id="@+id/send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/email"
+        android:textColor="@color/colorBackground"
+        android:textSize="16sp"
+        app:cpb_selectorComplete="@color/colorAccent"
+        app:cpb_textComplete="Complete"
+        app:cpb_textError="Error"
+        app:cpb_textIdle="Upload"
+        />
+
+    </RelativeLayout>
+  </FrameLayout>
+</layout>

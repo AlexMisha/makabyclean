@@ -7,7 +7,7 @@
       />
     <item
       android:id="@+id/chapter_2"
-      android:title="@string/menu_item_contacts"
+      android:title="@string/menu_item_order"
       />
   </group>
 

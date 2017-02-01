@@ -16,5 +16,20 @@
   <string name="header_text">MAKABYCLEAN.RU</string>
   <string name="nav_text">mkbklean@gmail.com</string>
   <string name="menu_item_main">Главная</string>
-  <string name="menu_item_contacts">Услуги</string>
+  <string name="menu_item_order">Заказ</string>
+
+  <string name="hint">Выберите тип услуги</string>
+
+  <string-array name="services">
+    <item>Ежедневная уборка</item>
+    <item>Уборка офисов</item>
+  </string-array>
+
+  <string name="name_hint">Иван</string>
+  <string name="name_help">Ваше имя</string>
+  <string name="phone_hint">+7 (812) 607–17–47</string>
+  <string name="phone_help">Ваш номер телефона</string>
+  <string name="mail_hint">mkbklean@gmail.com</string>
+  <string name="mail_help">Ваш адрес электронной почты</string>
+
 </resources>
