@@ -31,5 +31,6 @@
   <string name="phone_help">Ваш номер телефона</string>
   <string name="mail_hint">mkbklean@gmail.com</string>
   <string name="mail_help">Ваш адрес электронной почты</string>
+  <string name="accept_button">Оформить</string>
 
 </resources>

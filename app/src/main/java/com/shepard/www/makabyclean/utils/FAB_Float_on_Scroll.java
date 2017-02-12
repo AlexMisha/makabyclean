@@ -4,9 +4,9 @@ import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.view.animation.FastOutLinearInInterpolator;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.animation.LinearInterpolator;
 
 /**
  * Created by Полина on 20.01.2017.
@@ -26,9 +26,9 @@ public class FAB_Float_on_Scroll extends FloatingActionButton.Behavior {
     if (dyConsumed > 0) {
       CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) child.getLayoutParams();
       int fab_bottomMargin = layoutParams.bottomMargin;
-      child.animate().translationY(child.getHeight() + fab_bottomMargin).setInterpolator(new LinearInterpolator()).start();
+      child.animate().translationY(child.getHeight() + fab_bottomMargin).setInterpolator(new FastOutLinearInInterpolator()).start();
     } else if (dyConsumed < 0) {
-      child.animate().translationY(0).setInterpolator(new LinearInterpolator()).start();
+      child.animate().translationY(0).setInterpolator(new FastOutLinearInInterpolator()).start();
     }
   }
 

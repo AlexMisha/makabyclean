@@ -33,8 +33,6 @@ public class OrderFragment extends Fragment {
 
     initSpinner();
 
-    binding.send.setProgress(100);
-
     return view;
   }
 
