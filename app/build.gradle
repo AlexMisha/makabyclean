@@ -32,4 +32,12 @@ dependencies {
   compile 'com.github.ganfra:material-spinner:1.1.1'
   compile 'com.rengwuxian.materialedittext:library:2.1.4'
   compile 'com.github.vajro:MaterialDesignLibrary:1.6'
+  // Google Play services Auth split
+  compile 'com.google.android.gms:play-services-auth:10.2.0'
+  // Google Api Client library and Android extension
+  compile 'com.google.api-client:google-api-client:1.22.0'
+  compile 'com.google.api-client:google-api-client-android:1.22.0'
+  // Change to the API you want to access:
+  // Below is just an example for People REST API access
+  compile 'com.google.apis:google-api-services-people:v1-rev4-1.22.0'
 }

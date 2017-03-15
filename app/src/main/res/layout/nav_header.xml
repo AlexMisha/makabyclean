@@ -31,4 +31,11 @@
     android:text="@string/nav_text"
     android:id="@+id/textView"/>
 
+  <TextView
+    android:layout_width="match_parent"
+    android:paddingTop="4dp"
+    android:layout_height="wrap_content"
+    android:text="@string/company_phone"
+    />
+
 </LinearLayout>

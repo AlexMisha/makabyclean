@@ -9,10 +9,6 @@ import com.shepard.www.makabyclean.activities.MainActivity;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
-/**
- * Created by micha on 11/02/2017.
- */
-
 public class SplashScreen extends AppCompatActivity {
 
   @Override

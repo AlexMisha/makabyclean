@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "504796929168",
+    "project_id": "makabyclean"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:504796929168:android:b844c68d5c7e2bcc",
+        "android_client_info": {
+          "package_name": "com.shepard.www.makabyclean"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "504796929168-ui1vpvn09ft2qsn723ufku3v27sfji2j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shepard.www.makabyclean",
+            "certificate_hash": "1072274C483237438CFB39491105A7A0E51A6559"
+          }
+        },
+        {
+          "client_id": "504796929168-tgul8nrhnpsdh0mb4oabl3vtarlu8o65.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdtKP_ltganlI4ajokFbT3_Y9jP3IbZjk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

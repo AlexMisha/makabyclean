@@ -97,6 +97,14 @@
         android:text="@string/accept_button"
         />
 
+      <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_accept"
+        android:layout_centerHorizontal="true"
+        />
+
     </RelativeLayout>
   </FrameLayout>
 </layout>

@@ -1,15 +1,32 @@
 package com.shepard.www.makabyclean.fragments;
 
+import android.accounts.Account;
+import android.app.Activity;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Scope;
 import com.shepard.www.makabyclean.R;
+import com.shepard.www.makabyclean.activities.MainActivity;
 import com.shepard.www.makabyclean.databinding.FragmentOrderBinding;
 import com.shepard.www.makabyclean.models.Page;
 
@@ -18,6 +35,13 @@ public class OrderFragment extends Fragment {
   private String url = "http://www.makabyclean.ru";
 
   private FragmentOrderBinding binding;
+
+  private GoogleSignInAccount googleAccount;
+
+  private MainActivity activity;
+
+  private String name;
+  private String email;
 
   public OrderFragment() {
     //empty constructor
@@ -30,8 +54,15 @@ public class OrderFragment extends Fragment {
         inflater, R.layout.fragment_order, container, false);
     View view = binding.getRoot();
     binding.setPage(new Page());
+    activity = (MainActivity) getActivity();
 
     initSpinner();
+    initSignInButton(getActivity());
+
+    if (activity.getGoogleAccount() != null){
+      googleAccount = activity.getGoogleAccount();
+      setFields();
+    }
 
     return view;
   }
@@ -43,4 +74,67 @@ public class OrderFragment extends Fragment {
     binding.spinner.setAdapter(adapter);
     //binding.spinner.setSelection(1);
   }
+
+  public void initSignInButton(final Activity activity) {
+    binding.signInButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        GoogleSignInOptions gso =
+            new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail().
+                requestScopes(new Scope("https://www.googleapis.com/auth/contacts.readonly"))
+                .build();
+
+        GoogleApiClient mGoogleApiClient = new GoogleApiClient.Builder(
+            binding.getRoot().getContext())
+            .enableAutoManage((FragmentActivity) activity,
+                new GoogleApiClient.OnConnectionFailedListener() {
+                  @Override
+                  public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                    Toast.makeText(activity, "ConnectionFailed", Toast.LENGTH_SHORT).show();
+                  }
+                })
+            .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+            .build();
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, 3);
+      }
+    });
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    if (requestCode == 3) {
+      GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+      if (result.isSuccess()) {
+        GoogleSignInAccount googleSignInAccount = result.getSignInAccount();
+        if (googleSignInAccount != null) {
+          googleAccount = googleSignInAccount;
+          setFields();
+        }
+      } else {
+        Toast.makeText(getActivity(), "Соединение прервано", Toast.LENGTH_SHORT).show();
+      }
+    }
+  }
+
+  public void setFields() {
+    name = googleAccount.getDisplayName();
+    email = googleAccount.getEmail();
+
+    binding.signInButton.setVisibility(View.INVISIBLE);
+
+    activity.setGoogleAccount(googleAccount);
+
+    if (name != null) {
+      binding.firstName.setText(name);
+    }
+
+    if (email != null) {
+      binding.email.setText(email);
+    }
+  }
+
 }

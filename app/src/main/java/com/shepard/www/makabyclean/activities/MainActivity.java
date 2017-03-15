@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.shepard.www.makabyclean.R;
 import com.shepard.www.makabyclean.databinding.ActivityMainBinding;
 import com.shepard.www.makabyclean.fragments.PageFragment;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
   private ActivityMainBinding binding;
 
   private String Tag = ".MainActivity";
+
+  private GoogleSignInAccount googleAccount;
 
   private ActionBarDrawerToggle toggle;
 
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onClick(View view) {
         Intent intent = new Intent(Intent.ACTION_CALL);
-        intent.setData(Uri.parse("tel:88126071747"));
+        intent.setData(Uri.parse("tel:89062502880"));
         if (ActivityCompat.checkSelfPermission(getApplicationContext(),
             Manifest.permission.CALL_PHONE)
             != PackageManager.PERMISSION_GRANTED) {
@@ -101,6 +104,14 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void attachBaseContext(Context newBase) {
     super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+  }
+
+  public GoogleSignInAccount getGoogleAccount() {
+    return googleAccount;
+  }
+
+  public void setGoogleAccount(GoogleSignInAccount googleAccount) {
+    this.googleAccount = googleAccount;
   }
 
   @Override
