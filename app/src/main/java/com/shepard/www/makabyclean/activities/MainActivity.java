@@ -24,6 +24,7 @@ import android.view.View;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.shepard.www.makabyclean.R;
+import com.shepard.www.makabyclean.SplashScreen;
 import com.shepard.www.makabyclean.databinding.ActivityMainBinding;
 import com.shepard.www.makabyclean.fragments.PageFragment;
 import com.shepard.www.makabyclean.models.Page;
@@ -41,24 +42,26 @@ public class MainActivity extends AppCompatActivity {
 
   private ActionBarDrawerToggle toggle;
 
+  private NavigationUtil navigationUtil;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+    navigationUtil = new NavigationUtil(binding, getFragmentManager());
     Page page = new Page();
     binding.setPage(page);
     initializeToolbar();
-
-    Fragment pageFragment = new PageFragment();
-    FragmentManager fragmentManager = getFragmentManager();
-    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-    fragmentTransaction.replace(R.id.frameLayout, pageFragment).commit();
 
     setupDrawerContent(binding.nvView);
     toggle = setupDrawerToggle();
     binding.drawerLayout.addDrawerListener(toggle);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(false);
+
+    if (savedInstanceState == null) {
+      navigationUtil.setCurrentFragment(0);
+    }
 
     initFab();
 
@@ -91,8 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
   private void setupDrawerContent(NavigationView navigationView) {
     navigationView.getMenu().getItem(0).setChecked(true);
-    navigationView.setNavigationItemSelectedListener(new NavigationUtil(
-        binding, getFragmentManager()));
+    navigationView.setNavigationItemSelectedListener(navigationUtil);
   }
 
   @Override
@@ -111,7 +113,9 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void setGoogleAccount(GoogleSignInAccount googleAccount) {
-    this.googleAccount = googleAccount;
+    if (googleAccount != null) {
+      this.googleAccount = googleAccount;
+    }
   }
 
   @Override
@@ -139,5 +143,11 @@ public class MainActivity extends AppCompatActivity {
   public void onConfigurationChanged(Configuration newConfig) {
     super.onConfigurationChanged(newConfig);
     toggle.onConfigurationChanged(newConfig);
+  }
+
+  @Override
+  protected void onSaveInstanceState(Bundle outState) {
+    outState.putBoolean("isScreenOrientationChanged", true);
+    super.onSaveInstanceState(outState);
   }
 }

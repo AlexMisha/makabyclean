@@ -15,10 +15,6 @@ import com.shepard.www.makabyclean.fragments.PageFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by micha on 30/01/2017.
- */
-
 public class NavigationUtil implements NavigationView.OnNavigationItemSelectedListener {
 
   private NavigationView navigationView;
@@ -28,6 +24,8 @@ public class NavigationUtil implements NavigationView.OnNavigationItemSelectedLi
   private FragmentManager fm;
 
   private List<MenuItem> menuItems;
+
+  private Integer currentFragmentPosition;
 
   public NavigationUtil(ActivityMainBinding binding,
       FragmentManager fm) {
@@ -45,6 +43,7 @@ public class NavigationUtil implements NavigationView.OnNavigationItemSelectedLi
   public boolean onNavigationItemSelected(@NonNull MenuItem item) {
     if (item.getTitle() == binding.getRoot().getResources().getString(R.string.menu_item_main)) {
       changeFragment(new PageFragment());
+      currentFragmentPosition = 0;
       selectItem(item);
     }
 
@@ -52,6 +51,7 @@ public class NavigationUtil implements NavigationView.OnNavigationItemSelectedLi
         .getResources()
         .getString(R.string.menu_item_order)) {
       changeFragment(new OrderFragment());
+      currentFragmentPosition = 1;
       selectItem(item);
     }
 
@@ -73,5 +73,13 @@ public class NavigationUtil implements NavigationView.OnNavigationItemSelectedLi
   private void changeFragment(Fragment fragment) {
     FragmentTransaction fragmentTransaction = fm.beginTransaction();
     fragmentTransaction.replace(R.id.frameLayout, fragment).commit();
+  }
+
+  public Integer getCurrentFragmentPosition() {
+    return currentFragmentPosition;
+  }
+
+  public void setCurrentFragment(Integer currentFragmentPosition) {
+    onNavigationItemSelected(menuItems.get(currentFragmentPosition));
   }
 }

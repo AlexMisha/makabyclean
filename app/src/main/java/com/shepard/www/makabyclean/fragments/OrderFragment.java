@@ -1,17 +1,13 @@
 package com.shepard.www.makabyclean.fragments;
 
-import android.accounts.Account;
 import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,9 +38,29 @@ public class OrderFragment extends Fragment {
 
   private String name;
   private String email;
+  private String phone;
+  private Integer orderType;
+
+  private boolean authorized;
 
   public OrderFragment() {
     //empty constructor
+  }
+
+  @Override
+  public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    super.onActivityCreated(savedInstanceState);
+    if (savedInstanceState != null) {
+      name = savedInstanceState.getString("name");
+      email = savedInstanceState.getString("email");
+      phone = savedInstanceState.getString("phone");
+      orderType = savedInstanceState.getInt("order_type");
+      if (savedInstanceState.getBoolean("isAuthorized", false)) {
+        authorized = true;
+        binding.signInButton.setVisibility(View.INVISIBLE);
+      }
+      setFields();
+    }
   }
 
   public View onCreateView(LayoutInflater inflater,
@@ -59,15 +75,17 @@ public class OrderFragment extends Fragment {
     initSpinner();
     initSignInButton(getActivity());
 
-    if (activity.getGoogleAccount() != null){
+    if ((activity.getGoogleAccount() != null) || (googleAccount != null)) {
       googleAccount = activity.getGoogleAccount();
+      binding.signInButton.setVisibility(View.INVISIBLE);
+      setParams();
       setFields();
     }
 
     return view;
   }
 
-  public void initSpinner() {
+  private void initSpinner() {
     ArrayAdapter<String> adapter = new ArrayAdapter<String>(binding.getRoot().getContext(),
         android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.services));
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -75,31 +93,35 @@ public class OrderFragment extends Fragment {
     //binding.spinner.setSelection(1);
   }
 
-  public void initSignInButton(final Activity activity) {
+  private void initSignInButton(final Activity activity) {
     binding.signInButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        GoogleSignInOptions gso =
-            new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail().
-                requestScopes(new Scope("https://www.googleapis.com/auth/contacts.readonly"))
-                .build();
-
-        GoogleApiClient mGoogleApiClient = new GoogleApiClient.Builder(
-            binding.getRoot().getContext())
-            .enableAutoManage((FragmentActivity) activity,
-                new GoogleApiClient.OnConnectionFailedListener() {
-                  @Override
-                  public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                    Toast.makeText(activity, "ConnectionFailed", Toast.LENGTH_SHORT).show();
-                  }
-                })
-            .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-            .build();
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, 3);
+        googleSignInOptions(activity);
       }
     });
+  }
+
+  private void googleSignInOptions(final Activity activity) {
+    GoogleSignInOptions gso =
+        new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail().
+            requestScopes(new Scope("https://www.googleapis.com/auth/contacts.readonly"))
+            .build();
+
+    GoogleApiClient mGoogleApiClient = new GoogleApiClient.Builder(
+        binding.getRoot().getContext())
+        .enableAutoManage((FragmentActivity) activity,
+            new GoogleApiClient.OnConnectionFailedListener() {
+              @Override
+              public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                Toast.makeText(activity, "ConnectionFailed", Toast.LENGTH_SHORT).show();
+              }
+            })
+        .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+        .build();
+    Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+    startActivityForResult(signInIntent, 3);
   }
 
   @Override
@@ -112,7 +134,10 @@ public class OrderFragment extends Fragment {
         GoogleSignInAccount googleSignInAccount = result.getSignInAccount();
         if (googleSignInAccount != null) {
           googleAccount = googleSignInAccount;
+          activity.setGoogleAccount(googleAccount);
+          setParams();
           setFields();
+          binding.signInButton.setVisibility(View.INVISIBLE);
         }
       } else {
         Toast.makeText(getActivity(), "Соединение прервано", Toast.LENGTH_SHORT).show();
@@ -120,21 +145,35 @@ public class OrderFragment extends Fragment {
     }
   }
 
-  public void setFields() {
+  private void setParams() {
     name = googleAccount.getDisplayName();
     email = googleAccount.getEmail();
+  }
 
-    binding.signInButton.setVisibility(View.INVISIBLE);
-
-    activity.setGoogleAccount(googleAccount);
-
+  private void setFields() {
     if (name != null) {
       binding.firstName.setText(name);
     }
-
     if (email != null) {
       binding.email.setText(email);
     }
+    if (phone != null) {
+      binding.phone.setText(phone);
+    }
+    if (orderType != null) {
+      binding.spinner.setSelection(orderType);
+    }
   }
 
+  @Override
+  public void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+    outState.putString("name", binding.firstName.getText().toString());
+    outState.putString("email", binding.email.getText().toString());
+    outState.putString("phone", binding.phone.getText().toString());
+    outState.putInt("order_type", binding.spinner.getSelectedItemPosition());
+    if ((googleAccount != null) || (authorized)) {
+      outState.putBoolean("isAuthorized", true);
+    }
+  }
 }
